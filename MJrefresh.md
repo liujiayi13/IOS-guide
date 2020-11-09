@@ -102,3 +102,7 @@ header.automaticallyChangeAlpha = YES;
 
 
 ```
+
+MJRefreshBackNormalFooter 一直在屏幕最下方显示刷新的过程，刷新完回弹
+MJRefreshAutoNormalFooter  向下拖动的过程中就会在当前最后一个cell下面显示刷新的过程
+
