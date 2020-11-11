@@ -46,3 +46,33 @@ RACCommand需要执行，然后才能创建信号，不执行信号也不会执�
 
 
 # RACSignal
+
+```
+RACSignal *signal = [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+    [subscriber sendNext:@"1"];
+    [subscriber sendNext:@"2"];
+    [subscriber sendCompleted];     
+    [subscriber sendNext:@"3"];  // 无效
+    return [RACDisposable disposableWithBlock:^{
+        NSLog(@"dispose");       // 当错误事件或者完成事件产生时，该block被调用
+    }];
+}];
+
+[signal subscribeNext:^(id x) {
+    NSLog(@"next value is :  %@", x);
+} error:^(NSError *error) {
+    NSLog(@"error : %@", error);
+} completed:^{
+    NSLog(@"completed");
+}];
+
+/* prints:
+next value is :  1
+next value is :  2
+completed
+dispose
+*/
+```
+
+基本使用：创建信号，信号发送数据，订阅信号，执行block
+一般
